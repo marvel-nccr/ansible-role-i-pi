@@ -1,2 +1,23 @@
 ---
+- name: Install i-pi dependencies
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+      name: "{{ item }}"
+      state: latest
+  with_items:
+    - build-essential
+    - gfortran
+    - gcc
 
+- name: get i-pi from github
+  git:
+    repo: https://github.com/i-pi/i-pi.git
+    dest: "{{ i_pi_root_dir}}"
+    version: master
+
+- name: Make i-pi drivers
+  shell: "make"
+  args:
+    chdir: "{{ i_pi_root_dir }}/drivers"
+    creates: "{{ i_pi_root_dir }}/drivers/driver.x"
