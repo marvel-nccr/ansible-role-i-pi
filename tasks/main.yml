@@ -20,10 +20,16 @@
   git:
     repo: https://github.com/i-pi/i-pi.git
     dest: "{{ i_pi_root_dir}}"
-    version: 18b254a9100d47910046ab190c53b89bcecae310
+    version: "{{i_pi_version }}"
 
 - name: Make i-pi drivers
   shell: "make"
   args:
     chdir: "{{ i_pi_root_dir }}/drivers"
     creates: "{{ i_pi_root_dir }}/drivers/driver.x"
+
+- name: "Put a line in ~/.profile to add i-pi to the path"
+  lineinfile:
+    path: "${HOME}/.profile"
+    line: "export PATH=${PATH}:{{ i_pi_root_dir }}/bin/"
+

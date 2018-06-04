@@ -1,4 +1,4 @@
 ---
 i_pi_root_dir: "{{ i_pi_code_folder}}/i-pi"
-
+i_pi_version: 18b254a9100d47910046ab190c53b89bcecae310
 root_user: "root"
