@@ -10,11 +10,17 @@
     - gfortran
     - gcc
 
-- name: get i-pi from github
+- name: Installing NumPy for i-pi
+  become: true
+  become_user: "{{ root_user }}"
+  pip:
+      name: NumPy
+
+- name: Get i-pi from github
   git:
     repo: https://github.com/i-pi/i-pi.git
     dest: "{{ i_pi_root_dir}}"
-    version: master
+    version: 18b254a9100d47910046ab190c53b89bcecae310
 
 - name: Make i-pi drivers
   shell: "make"

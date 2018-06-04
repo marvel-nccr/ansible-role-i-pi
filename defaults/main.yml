@@ -1,4 +1,4 @@
 ---
 i_pi_root_dir: "{{ i_pi_code_folder}}/i-pi"
 
-root_user: "{{ root_user }}"
+root_user: "root"
