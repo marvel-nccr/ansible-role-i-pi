@@ -9,6 +9,7 @@
     - build-essential
     - gfortran
     - gcc
+    - python-pip
 
 - name: Installing NumPy for i-pi
   become: true
