@@ -3,25 +3,23 @@
   become: true
   become_user: "{{ root_user }}"
   apt:
-      name: "{{ item }}"
-      state: latest
-  with_items:
-    - build-essential
-    - gfortran
-    - gcc
-    - python-pip
+    name:
+      - build-essential
+      - gfortran
+      - gcc
+      - python-pip
 
 - name: Installing NumPy for i-pi
   become: true
   become_user: "{{ root_user }}"
   pip:
-      name: NumPy
+    name: NumPy
 
 - name: Get i-pi from github
   git:
     repo: https://github.com/i-pi/i-pi.git
-    dest: "{{ i_pi_root_dir}}"
-    version: "{{i_pi_version }}"
+    dest: "{{ i_pi_root_dir }}"
+    version: "{{ i_pi_version }}"
 
 - name: Make i-pi drivers
   shell: "make"
@@ -33,4 +31,3 @@
   lineinfile:
     path: "${HOME}/.profile"
     line: "export PATH=${PATH}:{{ i_pi_root_dir }}/bin/"
-
