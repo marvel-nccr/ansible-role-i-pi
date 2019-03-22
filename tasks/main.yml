@@ -3,12 +3,11 @@
   become: true
   become_user: "{{ root_user }}"
   apt:
-    name: "{{ item }}"
-  with_items:
-    - build-essential
-    - gfortran
-    - gcc
-    - python-pip
+    name:
+      - build-essential
+      - gfortran
+      - gcc
+      - python-pip
 
 - name: Installing NumPy for i-pi
   become: true
