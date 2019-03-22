@@ -3,8 +3,8 @@
   become: true
   become_user: "{{ root_user }}"
   apt:
-      name: "{{ item }}"
-      state: latest
+    name: "{{ item }}"
+    state: latest
   with_items:
     - build-essential
     - gfortran
@@ -15,7 +15,7 @@
   become: true
   become_user: "{{ root_user }}"
   pip:
-      name: NumPy
+    name: NumPy
 
 - name: Get i-pi from github
   git:
@@ -33,4 +33,3 @@
   lineinfile:
     path: "${HOME}/.profile"
     line: "export PATH=${PATH}:{{ i_pi_root_dir }}/bin/"
-
