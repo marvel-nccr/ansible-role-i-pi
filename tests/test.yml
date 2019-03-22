@@ -1,6 +1,0 @@
----
-- hosts: localhost
-  roles:
-  - role: i-pi
-    vars:
-      cloud_platform: docker
