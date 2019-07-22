@@ -1,7 +1,6 @@
 ---
 - name: Install i-pi dependencies
   become: true
-  become_user: "{{ root_user }}"
   apt:
     name:
       - build-essential
@@ -11,7 +10,6 @@
 
 - name: Installing NumPy for i-pi
   become: true
-  become_user: "{{ root_user }}"
   pip:
     name: NumPy
 
@@ -22,12 +20,23 @@
     version: "{{ i_pi_version }}"
 
 - name: Make i-pi drivers
-  shell: "make"
+  command: "make"
   args:
     chdir: "{{ i_pi_root_dir }}/drivers"
     creates: "{{ i_pi_root_dir }}/drivers/driver.x"
 
-- name: "Put a line in ~/.profile to add i-pi to the path"
-  lineinfile:
-    path: "${HOME}/.profile"
-    line: "export PATH=${PATH}:{{ i_pi_root_dir }}/bin/"
+- name: Copy each file over that matches the given pattern
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/fooapp/"
+    owner: "root"
+    mode: 0600
+  with_fileglob:
+    - "/playbooks/files/fooapp/*"
+
+- name: Install i-pi executables
+  become: true
+  shell: cp {{ i_pi_root_dir }}/bin/* {{ i_pi_prefix }}/bin
+  args:
+    creates: "{{ i_pi_prefix }}/bin/i-pi"
+  register: i_pi_install
